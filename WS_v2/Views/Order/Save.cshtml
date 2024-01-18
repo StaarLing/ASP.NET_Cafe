@@ -1,0 +1,102 @@
+﻿@model Cafe.Domain.ViewModel.Order.OrderViewModel
+@{
+    var textTitle = Model == null ? "Создание заказа" : "Изменение заказа";
+    ViewData["Title"] = textTitle;
+}
+<link rel="stylesheet" href="~/css/cardProduct.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<div style="padding: 10px;"></div>
+<div class="col-md-12">
+    <div class="card-body">
+        <div class="card card-outline-secondary" style="background-color: white">
+            <div class="card-header">
+                <h3 class="mb-0 text-center ParagraphHome">@textTitle</h3>
+            </div>
+            <div class="card-body">
+                <form asp-action="Save" enctype="multipart/form-data" id="OrderFormId">
+                    <input asp-for="id" hidden />
+                    <input asp-for="Status" hidden />
+                    <input asp-for="DateCreate" hidden />
+                    <input asp-for="Dishs" hidden />
+                    <div asp-validation-summary="All" style="font-size:15px;" class="text-danger text-center"></div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="Phone" class="col-form-label"></label>
+                            <input type="text" class="form-control" asp-for="Phone">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="Address" class="col-form-label"></label>
+                            <input type="text" class="form-control" asp-for="Address" />
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label asp-for="UserName" class="col-form-label"></label>
+                            <input type="text" class="form-control" asp-for="UserName">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Type" class="col-form-label"></label>
+                            <select asp-for="Type" class="form-control" id="OrderTypeId"></select>
+                        </div>
+                    </div>
+                    <div class="card-buttons-group">
+                        <button class='btn btn-primary' id='saveOrderId'>Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/select2/js/select2.full.min.js"></script>
+@section pageScripts
+    {
+    <script>
+        $('#OrderTypeId').select2({
+            placeholder: "Выберите тип заказа",
+            minimumInputLength: 0,
+            allowClear: true,
+            ajax: {
+                type: "POST",
+                url: "@Url.Action("GetType", "Order")",
+                dataType: "json",
+                processResults: function (result) {
+                    return {
+                        results: $.map(result, function (val, index) {
+                            return {
+                                id: index,
+                                text: val
+                            };
+                        }),
+                    };
+                }
+            }
+        });
+
+        $('#saveOrderId').on('click', function (e) {
+            e.preventDefault();
+            const data = $('#OrderFormId').serialize()
+            $.ajax({
+                url: '@Url.Action("Save", "Order")',
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    Swal.fire({
+                        title: 'Информация',
+                        text: response.description,
+                        confirmButtonText: 'Окей'
+                    })
+                },
+                error: function (data) {
+                    Swal.fire({
+                        title: 'Информация',
+                        text: 'Ошибка валидации',
+                        icon: 'error',
+                        confirmButtonText: 'Окей'
+                    })
+                }
+            });
+        });
+    </script>
+}

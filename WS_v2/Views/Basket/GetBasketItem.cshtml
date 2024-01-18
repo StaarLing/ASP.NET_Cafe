@@ -1,0 +1,114 @@
+﻿@model Cafe.Domain.ViewModel.Basket.BasketViewModel
+<style>
+    a {
+        text-decoration: none !important;
+    }
+</style>
+@{
+    ViewData["Title"] = "Basket";
+}
+@if (Model == null || Model.Items.Count() == 0)
+{
+    <div style="padding:40px;"></div>
+    <div class="card col-md-12">
+        <div class="row g-0">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Корзина пуста :(</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="padding:20px;"></div>
+    <a class="buttonBig" asp-controller="Dishs" asp-action="GetAll" type="button">Вернуться к выбору блюда</a>
+}
+else
+{
+    <div style="padding: 10px;"></div>
+    <div class="card col-md-auto">
+        <table class="table table-striped">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Фото</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Категория</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Количество</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dish in @Model.Items)
+                {
+                    <tr>
+                        <td>
+                            <img width="100px" src="data:image/jpeg;base64,@Convert.ToBase64String(dish.Dish?.Avatar ?? Array.Empty<byte>())"
+                         class="img-fluid rounded-start rounded">
+                        </td>
+                        <td>@dish.Dish.Name</td>
+                        <td>
+                            <select disabled class="form-control" id="dishTypeId2">
+                                <option value="@dish.Dish.IdK">@dish.Dish.IdK</option>
+                            </select>
+                        </td>
+                        <td>@dish.Dish.Price</td>
+                        <td>@dish.Count</td>
+                        <td>
+                            <form method="post">
+                                <button asp-controller="Basket" asp-action="DeleteItem" asp-route-id="@dish.Dish.IdD">
+                                    -1
+                                </button>
+                                <button asp-controller="Basket" asp-action="AddItem" asp-route-id="@dish.Dish.IdD">
+                                    +1
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div style="padding: 10px;"></div>
+    <div class="card col-md-12">
+        <table class="table table-striped">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Конечная стоимость: </th>
+                    <th scope="col">@Model.TotalPrice</th>
+                </tr>
+                <tr>
+                    <th scope="col">С учетом скидки: </th>
+                    <th scope="col">@Model.TotalPriceWithSell</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <a asp-controller="Order" asp-action="Save" asp-route-id="0" class="buttonBig">Сделать заказ</a>
+}
+<a class="buttonBig" asp-controller="Order" asp-action="OrderHistory">
+    История заказов
+</a>
+
+    <script src="~/lib/select2/js/select2.full.min.js"></script>
+    <script>
+        $('#dishTypeId2').select2({
+
+            placeholder: "Выберите тип",
+            minimumInputLength: 0,
+            allowClear: true,
+            ajax: {
+                type: "POST",
+                url: "@Url.Action("GetCategores", "Dishs")",
+                dataType: "json",
+                processResults: function (result) {
+                    return {
+                        results: $.map(result, function (val, index) {
+                            return {
+                                id: index,
+                                text: val
+                            };
+                        }),
+                    };
+                }
+            }
+        });
+    </script>

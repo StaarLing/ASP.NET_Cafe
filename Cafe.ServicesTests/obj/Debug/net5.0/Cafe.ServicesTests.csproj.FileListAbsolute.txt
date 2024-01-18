@@ -1,0 +1,6 @@
+C:\Users\1\source\repos\WS_v2\Cafe.ServicesTests\bin\Debug\net5.0\CoverletSourceRootsMapping
+C:\Users\1\source\repos\WS_v2\Cafe.ServicesTests\obj\Debug\net5.0\Cafe.ServicesTests.csproj.AssemblyReference.cache
+C:\Users\1\source\repos\WS_v2\Cafe.ServicesTests\obj\Debug\net5.0\Cafe.ServicesTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1\source\repos\WS_v2\Cafe.ServicesTests\obj\Debug\net5.0\Cafe.ServicesTests.AssemblyInfoInputs.cache
+C:\Users\1\source\repos\WS_v2\Cafe.ServicesTests\obj\Debug\net5.0\Cafe.ServicesTests.AssemblyInfo.cs
+C:\Users\1\source\repos\WS_v2\Cafe.ServicesTests\obj\Debug\net5.0\Cafe.ServicesTests.csproj.CoreCompileInputs.cache

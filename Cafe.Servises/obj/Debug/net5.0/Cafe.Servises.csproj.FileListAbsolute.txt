@@ -1,0 +1,17 @@
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\bin\Debug\net5.0\Cafe.Servises.deps.json
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\bin\Debug\net5.0\Cafe.Servises.dll
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\bin\Debug\net5.0\Cafe.Servises.pdb
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\bin\Debug\net5.0\Cafe.Dal.dll
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\bin\Debug\net5.0\Cafe.Domain.dll
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\bin\Debug\net5.0\Cafe.Dal.pdb
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\bin\Debug\net5.0\Cafe.Domain.pdb
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\obj\Debug\net5.0\Cafe.Servises.csproj.AssemblyReference.cache
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\obj\Debug\net5.0\Cafe.Servises.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\obj\Debug\net5.0\Cafe.Servises.AssemblyInfoInputs.cache
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\obj\Debug\net5.0\Cafe.Servises.AssemblyInfo.cs
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\obj\Debug\net5.0\Cafe.Servises.csproj.CoreCompileInputs.cache
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\obj\Debug\net5.0\Cafe.Servises.csproj.CopyComplete
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\obj\Debug\net5.0\Cafe.Servises.dll
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\obj\Debug\net5.0\refint\Cafe.Servises.dll
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\obj\Debug\net5.0\Cafe.Servises.pdb
+C:\Users\1\source\repos\WS_v2\Cafe.Servises\obj\Debug\net5.0\ref\Cafe.Servises.dll

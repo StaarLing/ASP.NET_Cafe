@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Cafe.Domain.ViewModel.Order.OrderViewModel>
+<style>
+    a {
+        text-decoration: none !important;
+    }
+</style>
+@{
+    ViewData["Title"] = "All Orders";
+}
+@if (Model == null || Model.Count() == 0)
+{
+    <div style="padding:40px;"></div>
+    <div class="card col-md-12">
+        <div class="row g-0">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Список заказов пуст :(</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="padding:20px;"></div>
+    <a class="buttonBig" asp-controller="Dishs" asp-action="GetAll" type="button">Вернуться к выбору блюда</a>
+}
+else
+{
+    <div style="padding: 10px;"></div>
+    <div class="card flex-md-column" style="width:100% !important">
+        <table class="table table-striped">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Номер</th>
+                    <th scope="col">Имя пользователя</th>
+                    <th scope="col">Номер телефона</th>
+                    <th scope="col" style="width: 250px">Состав</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Тип</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in @Model)
+                {
+                    <tr>
+                        <td>@order.id</td>
+                        <td>@order.UserName</td>
+                        <td>@order.Phone</td>
+                        <td>
+                            @foreach (var dish in order.Dishs)
+                            {
+                                <div class="photo" data-title="Название: @dish.Dishs.Name Цена: @dish.Dishs.Price Количество: @dish.Count">
+                                    <img width="85" src="data:image/jpeg;base64,@Convert.ToBase64String(dish.Dishs?.Avatar ?? Array.Empty<byte>())"
+                             class="img-fluid rounded-start rounded">
+                                </div>
+                            }
+                        </td>
+                        <td>@order.DateCreate</td>
+                        <td>@order.Type</td>
+                        <td>@order.Status</td>
+                        <td>@order.Price</td>
+                        <td>
+
+                            <form method="post">
+                                <a class="btn btn-primary" asp-controller="Order" asp-action="Delete" asp-route-id="@order.id">
+                                    Удалить заказ из истории
+                                </a>
+                            </form>
+                            <form method="post">
+                                <a class="btn btn-primary" asp-controller="Order" asp-action="EditOrder" asp-route-id="@order.id">
+                                    Изменить статус
+                                </a>
+                            </form>
+                                
+                           
+                           
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/select2/js/select2.full.min.js"></script>
+<script>
+    $('#OrderStatusId').select2({
+        placeholder: "Выберите Статус",
+        minimumInputLength: 0,
+        allowClear: true,
+        ajax: {
+            type: "POST",
+            url: "@Url.Action("GetStatus", "Order")",
+            dataType: "json",
+            processResults: function (result) {
+                return {
+                    results: $.map(result, function (val, index) {
+                        return {
+                            id: index,
+                            text: val
+                        };
+                    }),
+                };
+            }
+        }
+    });
+</script>

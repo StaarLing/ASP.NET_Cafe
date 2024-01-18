@@ -1,0 +1,81 @@
+﻿@model Cafe.Domain.ViewModel.Dish.DishViewModel
+@{
+    var textTitle = Model.IdD == 0 ? "Добавление данных" : "Изменение данных";
+    ViewData["Title"] = textTitle;
+}
+<link rel="stylesheet" href="~/css/cardProduct.css" />
+<div class="card" style="margin:20px">
+    <div class="card-body">
+        <form asp-action="Save" enctype="multipart/form-data">
+            <div asp-validation-summary="All" style="font-size:15px;" class="text-danger text-center"></div>
+            <input asp-for="IdD" hidden />
+            @if (Model.Image != null)
+            {
+                <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model?.Image ?? Array.Empty<byte>())"
+                 style="width:300px">
+            }
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Name" class="col-form-label"></label>
+                    <input type="text" class="form-control" asp-for="Name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Description" class="col-form-label"></label>
+                    <textarea type="text" class="form-control" asp-for="Description"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label asp-for="Count" class="col-form-label"></label>
+                    <input type="text" class="form-control" asp-for="Count">
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="Price" class="col-form-label"></label>
+                    <input type="text" class="form-control" asp-for="Price">
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="Sell" class="col-form-label"></label>
+                    <input type="text" class="form-control" asp-for="Sell">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label asp-for="IdK" class="col-form-label"></label>
+                    <select asp-for="IdK" class="form-control" id="DishTypeId"></select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="col-form-label">Изображение</label>
+                    <input asp-for="@Model.Avatar" class="form-control" type="file">
+                </div>
+            </div>
+            <div class="card-buttons-group">
+                <button class='btn btn-primary'>Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/select2/js/select2.full.min.js"></script>
+<script>
+    $('#DishTypeId').select2({
+        placeholder: "Выберите тип",
+        minimumInputLength: 0,
+        allowClear: true,
+        ajax: {
+            type: "POST",
+            url: "@Url.Action("GetCategores", "Dishs")",
+            dataType: "json",
+            processResults: function (result) {
+                return {
+                    results: $.map(result, function (val, index) {
+                        return {
+                            id: index,
+                            text: val
+                        };
+                    }),
+                };
+            }
+        }
+    });
+</script>

@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+<head>
+    <link rel="stylesheet" href="~/css/cardProduct.css" />
+    <link rel="stylesheet" href="~/css/pop-up.css" />
+    <style>
+        a {
+            text-decoration: none !important;
+        }
+    </style>
+</head>
+<style>
+    .card-buttons-group {
+        text-align: right;
+        padding: 10px;
+    }
+</style>
+
+<div class="product-item" style="margin:150px 50px 0 225px;">
+    <img src="~/Hot.jpg" alt="Hot">
+    <div class="product-list">
+        <h3>Горячие блюда</h3>
+        <a asp-controller="Dishs" asp-action="GetByCategory" asp-route-id="0" class="button">Все блюда</a>
+    </div>
+</div>
+<div class="product-item" style="margin-top:150px; margin-left:0px">
+    <img src="~/Saled.jpg" alt="Saled">
+    <div class="product-list">
+        <h3>Салаты</h3>
+        <a asp-controller="Dishs" asp-action="GetByCategory" asp-route-id="1" class="button">Все блюда</a>
+    </div>
+</div>
+<div class="product-item" style="margin-top:150px; margin-left:50px">
+    <img src="~/Drink.jpg" alt="Drinks">
+    <div class="product-list">
+        <h3>Напитки</h3>
+        <a asp-controller="Dishs" asp-action="GetByCategory" asp-route-id="2" class="button">Все блюда</a>
+    </div>
+</div>

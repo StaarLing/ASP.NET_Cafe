@@ -1,0 +1,52 @@
+﻿@model Cafe.Domain.ViewModel.Profile.ProfileViewModel
+@{
+    ViewBag.Title = "Профиль";
+    Layout = "_Layout";
+}
+
+<br />
+<div class="row">
+    <div class="col-sm-4" style="margin-top:40px; margin-left:200px; margin-right:40px">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Save" asp-controller="Profile">
+                    <input asp-for="IdP" hidden="hidden" />
+                    <h5 class="card-title">Данные профиля</h5>
+                    <div asp-validation-summary="All" style="font-size:15px;" class="text-danger text-center"></div>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">Возраст</label>
+                        <input type="text" class="form-control" asp-for="Age">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">Адрес</label>
+                        <textarea class="form-control" asp-for="Address" rows="3"></textarea>
+                    </div>
+                    <div class="card-buttons-group">
+                        <button class='btn btn-primary' type="submit">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4" style="margin-top:40px; margin-left:100px">
+        <div class="card">
+            <div class="card-body">
+                <form asp-controller="Account" asp-action="ChangePassword">
+                    <h5 class="card-title">Данные аккаунта</h5>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">Логин</label>
+                        <input type="text" class="form-control" asp-for="UserName">
+                        <div class="form-text">Длина логина должна быть от 3 до 20 символов.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-black-50">Новый пароль</label>
+                        <input name="NewPassword" class="form-control textbox-dg font-weight-bold text-center" type="password">
+                    </div>
+                    <div class="card-buttons-group">
+                        <button class='btn btn-primary' type="submit" >Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

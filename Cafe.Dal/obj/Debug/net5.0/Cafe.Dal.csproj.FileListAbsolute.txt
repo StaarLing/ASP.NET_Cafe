@@ -1,0 +1,17 @@
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\bin\Debug\net5.0\Cafe.Dal.deps.json
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\bin\Debug\net5.0\Cafe.Dal.dll
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\bin\Debug\net5.0\Cafe.Dal.pdb
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\bin\Debug\net5.0\Cafe.Domain.dll
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\bin\Debug\net5.0\Cafe.Domain.pdb
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\Cafe.Dal.csproj.AssemblyReference.cache
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\Cafe.Dal.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\Cafe.Dal.AssemblyInfoInputs.cache
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\Cafe.Dal.AssemblyInfo.cs
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\Cafe.Dal.csproj.CoreCompileInputs.cache
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\Cafe.Dal.csproj.CopyComplete
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\Cafe.Dal.dll
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\refint\Cafe.Dal.dll
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\Cafe.Dal.pdb
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\ref\Cafe.Dal.dll
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\Cafe.Dal.Properties.Resources.resources
+C:\Users\1\source\repos\WS_v2\Cafe.Dal\obj\Debug\net5.0\Cafe.Dal.csproj.GenerateResource.cache

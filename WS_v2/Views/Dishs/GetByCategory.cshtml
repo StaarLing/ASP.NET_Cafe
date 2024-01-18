@@ -1,0 +1,174 @@
+﻿@using Cafe.Domain.ViewModel.Dish
+@model List<Cafe.Domain.Entities.dishs>
+@{
+    ViewData["Title"] = "All Dishs";
+}
+<head>
+    <link rel="stylesheet" href="~/css/cardProduct.css" />
+    <link rel="stylesheet" href="~/css/pop-up.css" />
+    <style>
+        a {
+            text-decoration: none !important;
+        }
+    </style>
+</head>
+@if (Model != null)
+{
+    <style>
+        .card-buttons-group {
+            text-align: right;
+            padding: 10px;
+        }
+    </style>
+
+    <div class="card card-outline-secondary" style="background-color: red; margin:50px">
+        <div class="card-body">
+            <select class="form-control" id="firstCarId"></select>
+        </div>
+    </div>
+    @foreach (var dishs in Model)
+    {
+
+        <div class="product-item" style="margin:20px">
+            <img src="data:image/jpeg;base64,@Convert.ToBase64String(dishs?.Avatar ?? Array.Empty<byte>())" alt="@dishs.Name">
+            <div class="product-list">
+                <h3>@dishs.Name</h3>
+                <span class="price">₽ @dishs.Price</span>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (dishs.Count > 0)
+                    {
+                        <a asp-controller="Basket" asp-action="AddItem" asp-route-id="@dishs.IdD" class="button">В корзину</a>
+                    }
+                    else
+                    {
+                        <a class="button" style="background:#cccc">Кончилось :(</a>
+                    }
+                }
+                <button class="button" onclick="openModal({ url: '/Dishs/GetDish', data: '@dishs.IdD' })"
+                data-toggle="ajax-modal" data-target="Modal">
+                    Открыть
+                </button>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Dishs" asp-action="Save" asp-route-IdD="@dishs.IdD" class="button">Изменить</a>
+
+                    <a class="button" href="#win1">Удалить </a>
+                    <a href="#x" class="overlay" id="win1"></a>
+                    <div class="popup">
+                        <p>Вы уверены?</p>
+                        <a asp-controller="Dishs" asp-action="Delete" asp-route-IdD="@dishs.IdD" class="button">Удалить</a>
+
+                        <a class="close" title="Закрыть" href="#close"></a>
+
+                    </div>
+                    <h3>Осталось: @dishs.Count</h3>
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="product-lost">
+        <div class="row g-0">
+            <div class="product-list">
+
+                <h5 class="card-title text-center">Список пуст :(</h5>
+                <p class="card-text">
+                    Список пополниться позже, не расстраивайтесь
+                </p>
+            </div>
+        </div>
+    </div>
+
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/select2/js/select2.full.min.js"></script>
+@section pageScripts
+    {
+    <script src="~/js/modal.js"></script>
+    <script>
+        let modal = $('#modalWhButtons');
+
+        $('#compareBtnId').on('click', function () {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("PartialDish")',
+                success: function (response) {
+                    $('.modal-dialog').addClass("modal-lg");
+                    modal.find(".modal-body").html(response);
+                    modal.modal('show')
+                }
+            });
+        });
+
+        $(".btn-close").click(function () {
+            modal.modal('hide');
+        });
+
+        $('#addCarId').on('click', function () {
+            $.ajax({
+                type: 'GET',
+                url: '/Dish/Save',
+                success: function (response) {
+                    $('.modal-dialog').removeClass("modal-lg");
+                    modal.find(".modal-body").html(response);
+                    modal.modal('show')
+                },
+                failure: function () {
+                    modal.modal('hide')
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+        $(".btn-close").click(function () {
+            modal.modal('hide');
+        });
+
+        $(document).ready(function () {
+
+            $('#firstCardId').hide();
+
+            let firstCar = null;
+
+            $('#firstCarId').select2({
+                placeholder: "Найти",
+                minimumInputLength: 2,
+                allowClear: true,
+                ajax: {
+                    type: "POST",
+                    url: "@Url.Action("GetDish", "Dishs")",
+                    dataType: "json",
+                    data: function (params) {
+                        var query = {
+                            term: params.term,
+                            page: params.page || 1,
+                            pageSize: params.pageSize || 5
+                        };
+                        return query;
+                    },
+                    processResults: function (result) {
+                        return {
+                            results: $.map(result, function (val, index) {
+                                return {
+                                    id: index,
+                                    text: val
+                                };
+                            }),
+                        };
+                    }
+                }
+            });
+
+            $("#firstCarId").on("change", function () {
+                const id = this.value;
+                if (id === "") return;
+                openModal({ url: '/Dishs/GetDish', data: id })
+            });
+        });
+    </script>
+
+}

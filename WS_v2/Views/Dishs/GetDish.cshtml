@@ -1,0 +1,75 @@
+﻿@model Cafe.Domain.ViewModel.Dish.DishViewModel
+<form>
+    <div class="row">
+        <div class="col-md-12">
+            <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model?.Image ?? Array.Empty<byte>())"
+                 class="img-fluid rounded-start rounded">
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="@Model.Name" class="col-form-label"></label>
+            <input readonly type="text" class="form-control" asp-for="@Model.Name">
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Price" class="col-form-label"></label>
+            <input readonly type="text" class="form-control" asp-for="@Model.Price" />
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label asp-for="@Model.Description" class="col-form-label"></label>
+            <textarea readonly type="text" class="form-control" asp-for="@Model.Description"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="@Model.IdK" class="col-form-label"></label>
+            <input readonly class="form-control" asp-for="@Model.IdK" />
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Sell" class="col-form-label"></label>
+            <input readonly class="form-control" asp-for="@Model.Sell" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        @if (User.Identity.IsAuthenticated)
+        {
+
+            <a asp-controller="Basket" asp-action="AddItem" asp-route-IdD="@Model.IdD" class="btn btn-primary">Добавить в корзину</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="Dishs" asp-action="Save" asp-route-IdD="@Model.IdD" class="btn btn-primary">Изменить</a>
+                <a asp-controller="Dishs" asp-action="Delete" asp-route-IdD="@Model.IdD" class="btn btn-primary">Удалить</a>
+            }
+        }
+    </div>
+</form>
+
+
+<script src="~/lib/select2/js/select2.full.min.js"></script>
+<script>
+    $('#dishTypeId2').select2({
+
+        placeholder: "Выберите тип",
+        minimumInputLength: 0,
+        allowClear: true,
+        ajax: {
+            type: "POST",
+            url: "@Url.Action("GetCategores", "Dishs")",
+            dataType: "json",
+            processResults: function (result) {
+                return {
+                    results: $.map(result, function (val, index) {
+                        return {
+                            id: index,
+                            text: val
+                        };
+                    }),
+                };
+            }
+        }
+    });
+</script>

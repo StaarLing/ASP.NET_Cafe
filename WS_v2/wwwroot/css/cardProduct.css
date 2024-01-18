@@ -1,0 +1,136 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+.product-item {
+    width: 300px;
+    text-align: center;
+    margin: 0 auto;
+    border-bottom: 2px solid #F5F5F5;
+    background: white;
+    transition: .3s ease-in;
+    padding: 2px;
+    float: left;
+    position: relative;
+    left: 55px;
+
+}
+
+
+    .product-item:hover {
+        border-bottom: 2px solid #fc5a5a;
+    }
+
+    .product-item img {
+        display: block;
+        width: 100%;
+    }
+
+.product-list {
+    background: #fafafa;
+    padding: 15px 0;
+}
+
+    .product-list h3 {
+        font-size: 18px;
+        font-weight: 400;
+        color: #444444;
+        margin: 0 0 10px 0;
+    }
+
+.price {
+    font-size: 16px;
+    color: #fc5a5a;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.button {
+    text-decoration: none;
+    display: inline-block;
+    padding: 0 12px;
+    background: #cccccc;
+    color: white;
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 28px;
+    transition: .3s ease-in;
+    margin-top: 5px;
+}
+
+
+.product-item:hover .button {
+    background: #fc5a5a;
+}
+/*------------------*/
+
+﻿.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.card {
+    box-shadow: 4px 2px 2px 3px #c82333;
+}
+
+.card-title {
+    font-size: 25px;
+}
+
+.card-buttons-group {
+    text-align: left;
+    padding: 10px;
+}
+.buttonBig {
+    align-items: center;
+    background-color: #e4002b;
+    border: unset;
+    border-radius: 5rem;
+    color: #fff;
+    display: inline-flex;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    width: 100%;
+    height: 5.6rem;
+    margin-top: 10px;
+    font-size: 1.6rem;
+}
+﻿.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+.product-lost {
+    width: 500px;
+    text-align: center;
+    margin: 0 auto;
+    border-bottom: 2px solid #F5F5F5;
+    background: white;
+    transition: .3s ease-in;
+    padding: 2px;
+    float: left;
+    position: center;
+    left: 55px;
+}
+/*------------------*/
+.photo {
+    display: inline-block; /* Строчно-блочный элемент */
+    position: relative; /* Относительное позиционирование */
+}
+
+    .photo:hover::after {
+        content: attr(data-title); /* Выводим текст */
+        position: absolute; /* Абсолютное позиционирование */
+        left: 0;
+        right: 0;
+        bottom: 5px; /* Положение подсказки */
+        z-index: 1; /* Отображаем подсказку поверх других элементов */
+        background: rgba(0,42,167,0.6); /* Полупрозрачный цвет фона */
+        color: #fff; /* Цвет текста */
+        text-align: center; /* Выравнивание текста по центру */
+        font-family: Arial, sans-serif; /* Гарнитура шрифта */
+        font-size: 11px; /* Размер текста подсказки */
+        padding: 5px 10px; /* Поля */
+        border: 1px solid #333; /* Параметры рамки */
+    }

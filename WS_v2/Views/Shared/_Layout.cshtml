@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Cafe</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link href="https://raw.githack.com/ttskch/select2-bootstrap4-theme/master/dist/select2-bootstrap4.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/cardProduct.css" />
+    <link rel="stylesheet" href="~/css/dropDown.css" />
+    <link rel="stylesheet" href="~/css/pop-up.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/logo.png" alt="Письма мастера дзен"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-nav flex-grow-1 navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Dishs" asp-action="GetAll">Все блюда</a>
+                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+
+                        <div class="dropdown right">
+                            <button class="dropbtn">Админинстратор</button>
+                            <div class="dropdown-content">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="User" asp-action="GetUsers">Пользователя</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Dishs" asp-action="Save" asp-route-id="0">Блюдо</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Order" asp-action="AllOrders">
+                                        Заказы
+                                    </a>
+                                </li>
+                            </div>
+                        </div>
+                    }
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <div class="dropdown">
+                            <button class="dropbtn">Аккаунт</button>
+                            <div class="dropdown-content">
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Регистрация</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Вход</a>
+                                </li>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="dropdown">
+                            <button class="dropbtn">Аккаунт</button>
+                            <div class="dropdown-content">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Profile" asp-action="Detail">Профиль</a>
+                                </li>
+                                <form style="padding: 10px; padding-left:45px;" method="post" asp-controller="Account" asp-action="Logout">
+                                    <input class="btn btn-danger rounded" type="submit" value="Выход" />
+                                </form>
+                            </div>
+                        </div>
+                        <a asp-controller="Basket" asp-action="GetBasketItem">
+                            <svg style="color: black;" xmlns="http://www.w3.org/2000/svg" width="37" height="37" fill="currentColor" class="bi bi-basket2-fill" viewBox="0 0 16 16">
+                                <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383L5.93 1.757zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1z" />
+                            </svg>
+                        </a>
+
+                    }
+
+                </div>
+
+            </div>
+        </nav>
+
+    </header>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+
+
+    <div class="modal fade" id="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Информация</h5>
+                </div>
+                <div class="modal-body"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalWhButtons" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Информация</h5>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/js/modal.js"></script>
+
+    @RenderSection("pageScripts", required: false)
+</body>
+</html>
